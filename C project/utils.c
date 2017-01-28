@@ -156,21 +156,14 @@ inline BOOL isPedal2Pressed()
 	return FALSE; // педаль отжата
 }*/
 
-void switchValve1(u8 state)
+void switchValve(u8 state)
 {
 	if (state == ON)
-		PORTVALVE1 &= ~(1<<pinValve1);
+		PORTVALVE &= ~(1<<pinValve);
 	else
-		PORTVALVE1 |= 1<<pinValve1;
-	switchHL(pinPrePressingHL, state);
-}
-void switchValve2(u8 state)
-{
-	if (state == ON)
-		PORTVALVE2 &= ~(1<<pinValve2);
-	else
-		PORTVALVE2 |= 1<<pinValve2;
+		PORTVALVE |= 1<<pinValve;
 	switchHL(pinPressingHL, state);
+	//switchHL(pinPrePressingHL, state);
 }
 
 void switchHL(u8 line, u8 state)

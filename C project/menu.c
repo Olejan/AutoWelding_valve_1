@@ -7,7 +7,7 @@ extern const u8
 	_InfoSimple[],
 	_ViewParams1[],
 	_ViewParams2[],
-	_PrePressing[],
+	//_PrePressing[],
 	_Pressing[],
 	_Heating[],
 	_Forging[],
@@ -80,7 +80,7 @@ void UpdateLcdParam(u8 a_ParamsId, u8 a_nVal)
 {
 	switch(a_ParamsId)
 	{
-		case paramPrePressing:
+		//case paramPrePressing:
 		case paramHeating:
 		case paramForging:
 		case paramPause:
@@ -92,10 +92,10 @@ void UpdateLcdParam(u8 a_ParamsId, u8 a_nVal)
 			WrDec(a_nVal, 12, lcdstr2);
 			break;
 		case paramMode:
-#ifdef _ENGLISH_VERSION_
+#ifdef _RUSSIAN_VERSION_
 			lcd_gotoxy(6, lcdstr2);
 #else
-			lcd_gotoxy(1, lcdstr2);
+			lcd_gotoxy(6, lcdstr2);
 #endif
 			if (a_nVal == SIMPLE_MODE)
 				lcd_puts_p((const char *)_Simple);
@@ -145,9 +145,9 @@ void setScreen(u8 a_scr)
 		case scrViewParams:
 			lcd_puts_p((const char *)_ViewParams1);
 			break;
-		case scrPrePressing:
+		/*case scrPrePressing:
 			lcd_puts_p((const char *)_PrePressing);
-			break;
+			break;*/
 		case scrPressing:
 			lcd_puts_p((const char *)_PressingIs);
 			break;
@@ -176,7 +176,7 @@ void setScreen(u8 a_scr)
 		case scrWeldingCompleted:
 			lcd_puts_p((const char *)_Completed);
 			break;
-		case scrPrePressing:
+		//case scrPrePressing:
 		case scrPressing:
 		case scrHeating:
 		case scrForging:
@@ -209,9 +209,9 @@ void SetMenuData(u8 a_id)
 		case idPrograms:
 			UpdateParams(); // обновл€ю данные программы на экране
 			break;
-		case idChoosePrePressing:	case idEditPrePressing:
+		/*case idChoosePrePressing:	case idEditPrePressing:
 			param = paramPrePressing;
-			break;
+			break;*/
 		case idChoosePressing:		case idEditPressing:
 			param = paramPressing;
 			break;
@@ -239,7 +239,7 @@ void SetMenuData(u8 a_id)
 	}
 	switch(a_id)
 	{
-		case idChoosePrePressing:	case idEditPrePressing:
+		//case idChoosePrePressing:	case idEditPrePressing:
 		case idChoosePressing:		case idEditPressing:
 		case idChooseHeating:		case idEditHeating:
 		case idChooseForging:		case idEditForging:

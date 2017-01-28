@@ -1,8 +1,58 @@
 //#define _DEBUG_
-#define _DEMO_VERSION_
+//#define _DEMO_VERSION_
 #define WDT_ENABLE
 #define LED_COMMON_CATHODE	/* светодиоды подключены с общим катодом */
-
+#define _RUSSIAN_VERSION_
+#ifdef _RUSSIAN_VERSION_
+//Русские буквы
+#define _B 160/*Б*/
+#define _G 161/* Г*/
+#define _YO 162/* Ё*/
+#define _ZH 163/* Ж*/
+#define _Z 164/* З*/
+#define _I 165/* И*/
+#define _II 166/* Й*/
+#define _L 167/* Л*/
+#define _P 168/* П*/
+#define _U 169/* У*/
+#define _F 170/* Ф*/
+#define _CH 171/* Ч*/
+#define _SH 172/* Ш*/
+#define _SS 173/* Ъ*/
+#define _Y 174/* Ы*/
+#define _E 175/* Э*/
+#define _YU 176/* Ю*/
+#define _YA 177/* Я*/
+#define _b 178/* б*/
+#define _v 179/* в*/
+#define _g 180/* г*/
+#define _yo 181/* ё*/
+#define _zh 182/* ж*/
+#define _z 183/* з*/
+#define _i 184/* и*/
+#define _ii 185/* й*/
+#define _k 186/* к*/
+#define _l 187/* л*/
+#define _m 188/* м*/
+#define _n 189/* н*/
+#define _p 190/* п*/
+#define _t 191/* т*/
+#define _ch 192/* ч*/
+#define _sh 193/* ш*/
+#define _ss 194/* ъ*/
+#define _y 195/* ы*/
+#define _sfts 196/* ь*/
+#define _e 197/* э*/
+#define _yu 198/* ю*/
+#define _ya 199/* я*/
+#define _D 224/* Д*/
+#define _C 225/* Ц*/
+#define _SSH 226/* Щ*/
+#define _d 227/* д*/
+#define _f 228/* ф*/
+#define _c 229/* ц*/
+#define _ssh 230/* щ*/
+#endif
 
 typedef signed char			i8;
 typedef unsigned char		u8;
@@ -22,9 +72,8 @@ enum tag
 	OFF,
 	ON,
 	pinTrans	= 0, // PORTD.0
-	pinValve1	= 0, // PORTB.0
-	pinValve2	= 1, // PORTB.1
-	pinPedal1	= 6, // PORTB.6
+	pinValve	= 0, // PORTB.0
+	pinPedal	= 6, // PORTB.6
 	pinPedal2	= 7, // PORTB.7
 	firstPrg	= 0, // первая программа
 #ifdef _DEMO_VERSION_
@@ -42,7 +91,7 @@ enum tag
 
 enum tagHL
 {
-	pinPrePressingHL	= 7,
+	//pinPrePressingHL	= 7,
 	pinPressingHL		= 6,
 	pinHeatingHL		= 5,
 	pinForgingHL		= 4,
@@ -57,7 +106,7 @@ enum tagHL
 #endif
 };
 
-#define PINPEDAL1	PINB	/* пин педали предварительного сжатия */
+#define PINPEDAL	PINB	/* пин педали предварительного сжатия */
 #define PINPEDAL2	PINB	/* пин педали */
 #define DDRPEDAL1	DDRB	/* direct порт педали предварительного сжатия */
 #define DDRPEDAL2	DDRB	/* direct порт педали */
@@ -68,17 +117,17 @@ enum tagHL
 
 #define DDRTRANS	DDRD
 #define PORTTRANS	PORTD	/* порт трансформатора */
-#define DDRVALVE1	DDRB	/* direct порт клапана предварительного сжатия */
+#define DDRVALVE	DDRB	/* direct порт клапана предварительного сжатия */
 #define DDRVALVE2	DDRB	/* direct порт клапана */
-#define PORTVALVE1	PORTB	/* порт клапана предварительного сжатия*/
+#define PORTVALVE	PORTB	/* порт клапана предварительного сжатия*/
 #define PORTVALVE2	PORTB	/* порт клапана */
 #define DDRLED		DDRC
 #define PORTLED		PORTC	/* порт светодиодов */
 
 enum tagParams
 {
-	paramPrePressing	= 0,// предварительное сжатие !!! 1-й параметр должен быть равен 0 !!!
-	paramPressing,			// сжатие
+	//paramPrePressing	= 0,// предварительное сжатие !!! 1-й параметр должен быть равен 0 !!!
+	paramPressing		= 0,// сжатие
 	paramHeating,			// нагрев
 	paramForging,			// проковка
 	paramModulation,		// полупериоды модуляции
@@ -88,7 +137,7 @@ enum tagParams
 	paramNum,				// количество параметров !!! должен стоять сразу после последнего параметра !!!
 	cmnprmStartPrg,			// стартовая программа
 
-	minPrePressing	= 1,
+	//minPrePressing	= 1,
 	minPressing		= 1,
 	minHeating		= 1,
 	minForging		= 1,
@@ -96,7 +145,7 @@ enum tagParams
 	minCurrent		= 0,
 	MIN_PAUSE		= 1,
 
-	maxPrePressing	= 250,
+	//maxPrePressing	= 250,
 	maxPressing		= 99,
 	maxHeating		= 200,
 	maxForging		= 250,
@@ -104,7 +153,7 @@ enum tagParams
 	maxCurrent		= 9,
 	MAX_PAUSE		= 250,
 
-	defPrePressing	= 30,
+	//defPrePressing	= 30,
 	defPressing		= 3,
 	defHeating		= 50,
 	defForging		= 50,
@@ -116,8 +165,8 @@ enum tagParams
 enum tagEEPROMAddr
 {
 	addrEmpty		= 0,
-	addrPrePressing	= 1, // предварительное сжатие
-	addrPressing, // сжатие
+	//addrPrePressing	= 1, // предварительное сжатие
+	addrPressing	= 1, // сжатие
 	addrHeating, // нагрев
 	addrForging, // проковка
 	addrModulation, // полупериоды модуляции
@@ -138,7 +187,7 @@ enum tagLCD
 enum tagScreens
 {
 	scrViewParams,	// отображение параметров программ
-	scrPrePressing,	// предварительное сжатие
+	//scrPrePressing,	// предварительное сжатие
 	scrPressing,	// процесс сжатия
 	scrHeating,		// сварка
 	scrForging,		// проковка
@@ -180,13 +229,13 @@ enum tagIds
 	idChooseMode,
 	idChoosePause,
 	idChooseStartPrg,
-	idChoosePrePressing,
+	//idChoosePrePressing,
 	idChoosePressing,
 	idChooseHeating,
 	idChooseForging,
 	idChooseModulation,
 	idChooseCurrent,
-	idEditPrePressing,
+	//idEditPrePressing,
 	idEditPressing,
 	idEditHeating,
 	idEditForging,

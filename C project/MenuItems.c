@@ -7,14 +7,14 @@ void fChoosePrgStngs();
 void fChooseCmnStngs();
 void fParamMode();
 void fParamPause();
-void fParamPrePressing();
+//void fParamPrePressing();
 void fParamPressing();
 void fParamHeating();
 void fParamForging();
 void fParamModulation();
 void fParamCurrent();
 void fCmnPrmStartPrg();
-void fEditPrePressing();
+//void fEditPrePressing();
 void fEditPressing();
 void fEditHeating();
 void fEditForging();
@@ -30,17 +30,17 @@ __attribute__((section(".eeprom")))u8 unused_var = 0;
 __attribute__((section(".eeprom")))
 u8 eeMass[programNumber][paramNum] =
 {
-// {PrePressing,	Pressing,	Heating,	Forging,	Modulation,	Current,	Mode,			Pause}
-	{10,			3,			30,			30,			1,			1,			SIMPLE_MODE,	DEF_PAUSE},
-	{10,			3,			30,			30,			2,			2,			SIMPLE_MODE,	DEF_PAUSE},
-	{123,			75,			10,			234,			3,			7,			SIMPLE_MODE,	DEF_PAUSE},
-	{10,			3,			30,			30,			4,			4,			SIMPLE_MODE,	DEF_PAUSE},
-	{10,			3,			30,			30,			5,			5,			SIMPLE_MODE,	DEF_PAUSE},
-	{10,			3,			30,			30,			6,			6,			SIMPLE_MODE,	DEF_PAUSE},
-	{10,			3,			30,			30,			7,			7,			SIMPLE_MODE,	DEF_PAUSE},
-	{10,			3,			30,			30,			8,			8,			SIMPLE_MODE,	DEF_PAUSE},
-	{10,			3,			30,			30,			9,			9,			SIMPLE_MODE,	DEF_PAUSE},
-	{10,			3,			30,			30,			0,			0,			SIMPLE_MODE,	DEF_PAUSE}
+//  {Pressing,	Heating,	Forging,	Modulation,	Current,	Mode,			Pause}
+	{3,			30,			30,			1,			1,			SIMPLE_MODE,	DEF_PAUSE},
+	{3,			30,			30,			2,			2,			SIMPLE_MODE,	DEF_PAUSE},
+	{75,		10,			234,		3,			7,			SIMPLE_MODE,	DEF_PAUSE},
+	{3,			30,			30,			4,			4,			SIMPLE_MODE,	DEF_PAUSE},
+	{3,			30,			30,			5,			5,			SIMPLE_MODE,	DEF_PAUSE},
+	{3,			30,			30,			6,			6,			SIMPLE_MODE,	DEF_PAUSE},
+	{3,			30,			30,			7,			7,			SIMPLE_MODE,	DEF_PAUSE},
+	{3,			30,			30,			8,			8,			SIMPLE_MODE,	DEF_PAUSE},
+	{3,			30,			30,			9,			9,			SIMPLE_MODE,	DEF_PAUSE},
+	{3,			30,			30,			0,			0,			SIMPLE_MODE,	DEF_PAUSE}
 };
 __attribute__((section(".eeprom")))u8 ee_startprg = 2;
 //__attribute__((section(".eeprom")))u8 ee_mode = SIMPLE_MODE;
@@ -48,13 +48,13 @@ __attribute__((section(".eeprom")))u8 ee_startprg = 2;
 //=========================== строки меню ===========================
 const u8 PROGMEM
 	_Empty[]			= "                ",
-#ifdef _ENGLISH_VERSION_
-	_ViewInfo1[]		= "AutoWelding v1.0",
+#ifndef _RUSSIAN_VERSION_
+	_ViewInfo1[]		= "AutoWelding v2.0",
 	_InfoAuto[]			= "Auto (Pause    )",
 	_InfoSimple[]		= " Mode is Simple ",
 	_ViewParams1[]		= "7 H: 30 M:5 I:3 ",
 	_ViewParams2[]		= "Pr:450*30 Fg:110",
-	_PrePressing[]		= "PrePressing   0 ",
+	//_PrePressing[]		= "PrePressing   0 ",
 	_Pressing[]			= "Pressing        ",
 	_Heating[]			= "Heating         ",
 	_Modulation[]		= "Modulation      ",
@@ -87,12 +87,12 @@ const u8 PROGMEM
 	_Demo1[]			= " Demo version   ",
 	_Demo2[]			= "   Demo version ";
 #else
-	_ViewInfo1[]		= "АвтоСварка  v1.0",
+	_ViewInfo1[]		= "АвтоСварка v2.0R",
 	_InfoAuto[]			= "Авто (Пауза    )",
 	_InfoSimple[]		= "Режим Одиночный ",
 	_ViewParams1[]		= "7 Н: 30 М:5 Т:3 ",
-	_ViewParams2[]		= "Сж:450*30 Пр:110",
-	_PrePressing[]		= "Предвар.Сж.   0 ",
+	_ViewParams2[]		= "Сж:    30 Пр:110",
+	//_PrePressing[]		= "Предвар.Сж.   0 ",
 	_Pressing[]			= "Сжатие          ",
 	_Heating[]			= "Нагрев          ",
 	_Modulation[]		= "Модуляция       ",
@@ -106,22 +106,22 @@ const u8 PROGMEM
 	_Mode[]				= "Режим           ",
 	_Pause[]			= "Пауза           ",
 	_ParametrHas[]		= "  Параметр      ",
-	_BeenSaved[]		= "     сохранён!  ",
+	_BeenSaved[]		= "     сохран$н!  ",
 	_ParametrHasNot[]	= "Параметр не был ",
 	_WeldingIs[]		= " Цикл сварки    ",
-	_Completed[]		= "     завершён!  ",
+	_Completed[]		= "     заверш$н!  ",
 	_StartPrg[]			= "Стартовая прг 01",
 	_PressingIs[]		= " Сжатие         ",
 	_HeatingIs[]		= " Нагрев         ",
 	_ForgingIs[]		= " Проковка       ",
-	_Auto[]				= "Автоматический",
-	_Simple[]			= "     Одиночный",
+	_Auto[]				= "  Автомат  ",
+	_Simple[]			= " Одиночный ",
 	_Running[]			= "    в процессе! ",
 	_Ready[]			= "Готово! Нажмите ",
 	_ForWelding[]		= "педальдля сварки",
 	_Pause_[]			= "   Пауза        ",
-	_Splash1[]			= "Да прибудет с   ",
-	_Splash2[]			= "вами сила, друг!",
+	_Splash1[]			= "Да будет ваш    ",
+	_Splash2[]			= "  шов крепким!!!",
 	_Demo1[]			= " Демо версия    ",
 	_Demo2[]			= "   Демо версия  ";
 #endif
@@ -137,13 +137,13 @@ const MenuItem
 	mParamMode			PROGMEM = { idChooseMode,		_ChooseParam,	_Mode,			fParamMode },
 	mParamPause			PROGMEM = { idChoosePause,		_ChooseParam,	_Pause,			fParamPause },
 	mCmnPrmStartPrg		PROGMEM = { idChooseStartPrg,	_CommonStngs,	_StartPrg,		fCmnPrmStartPrg },
-	mParamPrePressing	PROGMEM = { idChoosePrePressing,_ChooseParam,	_PrePressing,	fParamPrePressing },
+	//mParamPrePressing	PROGMEM = { idChoosePrePressing,_ChooseParam,	_PrePressing,	fParamPrePressing },
 	mParamPressing		PROGMEM = { idChoosePressing,	_ChooseParam,	_Pressing,		fParamPressing },
 	mParamHeating		PROGMEM = { idChooseHeating,	_ChooseParam,	_Heating,		fParamHeating },
 	mParamForging		PROGMEM = { idChooseForging,	_ChooseParam,	_Forging,		fParamForging },
 	mParamModulation	PROGMEM = { idChooseModulation,	_ChooseParam,	_Modulation,	fParamModulation },
 	mParamCurrent		PROGMEM = { idChooseCurrent,	_ChooseParam,	_Current,		fParamCurrent },
-	mEditPrePressing	PROGMEM = { idEditPrePressing,	_Editing,		_PrePressing,	fEditPrePressing },
+	//mEditPrePressing	PROGMEM = { idEditPrePressing,	_Editing,		_PrePressing,	fEditPrePressing },
 	mEditPressing		PROGMEM = { idEditPressing,		_Editing,		_Pressing,		fEditPressing },
 	mEditHeating		PROGMEM = { idEditHeating,		_Editing,		_Heating,		fEditHeating },
 	mEditForging		PROGMEM = { idEditForging,		_Editing,		_Forging,		fEditForging },
@@ -240,7 +240,8 @@ void fChoosePrgStngs()
 				SetMenu(&mPrograms);
 			break;
 			case keyDown:
-				SetMenu(&mParamPrePressing);
+				SetMenu(&mParamPressing);
+				//SetMenu(&mParamPrePressing);
 			break;
 		}
 	}
@@ -277,7 +278,8 @@ void fParamMode()
 				if (curMode.get() == AUTO_MODE)
 					SetMenu(&mParamPause);
 				else
-					SetMenu(&mParamPrePressing);
+					SetMenu(&mParamPressing);
+					//SetMenu(&mParamPrePressing);
 			break;
 			case keyUp:
 				SetMenu(&mChoosePrgStngs);
@@ -298,7 +300,8 @@ void fParamPause()
 				SetMenu(&mParamMode);
 			break;
 			case keyRight:
-				SetMenu(&mParamPrePressing);
+				SetMenu(&mParamPressing);
+				//SetMenu(&mParamPrePressing);
 			break;
 			case keyUp:
 				SetMenu(&mChoosePrgStngs);
@@ -331,7 +334,7 @@ void fCmnPrmStartPrg()
 			break;
 		}
 }
-void fParamPrePressing()
+/*void fParamPrePressing()
 {
 	if (flags.scanKey)
 		switch(get_key())
@@ -352,14 +355,18 @@ void fParamPrePressing()
 				SetMenu(&mEditPrePressing);
 			break;
 		}
-}
+}*/
 void fParamPressing()
 {
 	if (flags.scanKey)
 		switch(get_key())
 		{
 			case keyLeft:
-				SetMenu(&mParamPrePressing);
+				if (curMode.get() == AUTO_MODE)
+				SetMenu(&mParamPause);
+				else
+				SetMenu(&mParamMode);
+				//SetMenu(&mParamPrePressing);
 			break;
 			case keyRight:
 				SetMenu(&mParamHeating);
@@ -448,7 +455,7 @@ void fParamCurrent()
 			break;
 		}
 }
-void fEditPrePressing()
+/*void fEditPrePressing()
 {
 	wdt_start(wdt_60ms);
 	u8 val = GetValue(paramPrePressing);
@@ -495,7 +502,7 @@ void fEditPrePressing()
 		if (CheckUpEditTime(TIME_FOR_SAVE) == TRUE)
 			return;
 	}
-}
+}*/
 void fEditPressing()
 {
 	wdt_start(wdt_60ms);

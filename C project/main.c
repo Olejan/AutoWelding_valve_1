@@ -28,8 +28,7 @@ extern u8 get_key();
 extern void SetMenu(const MenuItem* a_curMenu);
 extern MenuItem mPrograms;
 extern void setParamsFromEE();
-extern void switchValve1(u8 state);
-extern void switchValve2(u8 state);
+extern void switchValve(u8 state);
 extern void switchTrans(u8 state);
 extern BOOL CheckUpMenuTime(u32 time);
 //extern void init_lcd_simbols();
@@ -115,10 +114,8 @@ void initProc()
 	SFIOR |= 1 << PUD; // отключаю внутреннюю подтяжку портов
 	DDRTRANS |= 1<<pinTrans;
 	PORTTRANS |= 1<<pinTrans;
-	DDRVALVE1 |= 1<<pinValve1;
-	PORTVALVE1 |= 1<<pinValve1;
-	DDRVALVE2 |= 1<<pinValve2;
-	PORTVALVE2 |= 1<<pinValve2;
+	DDRVALVE |= 1<<pinValve;
+	PORTVALVE |= 1<<pinValve;
 	DDRLED = 0xff;
 	PORTLED = ALL_LEDS_OFF; // выключить все светодиоды
 	
@@ -142,9 +139,9 @@ void init()
 #ifndef _DEBUG_
 	lcd_init(LCD_DISP_ON);
 	//init_lcd_simbols();
-#ifdef _DEMO_VERSION_
+//#ifdef _DEMO_VERSION_
 	SplashScreen();
-#endif // _DEMO_VERSION_
+//#endif // _DEMO_VERSION_
 #endif // _DEBUG_
 	SetMenu(&mPrograms);
 }
@@ -158,10 +155,10 @@ int main()
 	{
 		wdt_feed();
 		DoMenu();
-		if (isPedal1Pressed() == TRUE && (getCurMenuId() == idPrograms)) // если нажата педаль и активное меню - "Программы"
+		if (isPedalPressed() == TRUE && (getCurMenuId() == idPrograms)) // если нажата педаль и активное меню - "Программы"
 		{
 			StartTaskWelding();
-			while(isPedal1Pressed())
+			while(isPedalPressed())
 			{
 				u8 res = DoWelding();
 				if (res == WELD_HAS_BROKEN)
